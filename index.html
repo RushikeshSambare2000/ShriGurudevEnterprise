@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Shree Gurudev Enterprises - Invoice & Quotation Generator for Core Cutting, Breaking & Rebaring Work">
+    <title>Shree Gurudev Enterprises - Invoice & Quotation Generator</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- html2pdf.js for PDF generation -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- ===== NAVBAR ===== -->
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top" id="mainNav">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center gap-2" href="#">
+                <img src="ref/img2.jpg" alt="Logo" class="navbar-logo">
+                <div>
+                    <span class="brand-title">SHREE GURUDEV ENTERPRISES</span>
+                    <span class="brand-subtitle d-block">Invoice & Quotation Generator</span>
+                </div>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarContent">
+                <ul class="navbar-nav ms-auto gap-2">
+                    <li class="nav-item">
+                        <button class="btn btn-nav active" id="btnShowQuotation" onclick="switchTab('quotation')">
+                            <i class="bi bi-file-earmark-text"></i> Quotation
+                        </button>
+                    </li>
+                    <li class="nav-item">
+                        <button class="btn btn-nav" id="btnShowInvoice" onclick="switchTab('invoice')">
+                            <i class="bi bi-receipt"></i> Invoice
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ===== HERO SECTION ===== -->
+    <section class="hero-section">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-8">
+                    <h1 class="hero-title">
+                        <img src="ref/img1.jpg" alt="Shri Gurudev" class="hero-guru-img">
+                        Generate Professional<br>
+                        <span class="gradient-text">Invoices & Quotations</span>
+                    </h1>
+                    <p class="hero-desc">Create, preview, and download beautiful PDF documents for your business in seconds.</p>
+                </div>
+                <div class="col-md-4 text-center">
+                    <div class="hero-stats">
+                        <div class="stat-card">
+                            <i class="bi bi-lightning-charge-fill"></i>
+                            <span>Instant PDF</span>
+                        </div>
+                        <div class="stat-card">
+                            <i class="bi bi-shield-check"></i>
+                            <span>GST Ready</span>
+                        </div>
+                        <div class="stat-card">
+                            <i class="bi bi-printer"></i>
+                            <span>Print Ready</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== MAIN FORM SECTION ===== -->
+    <section class="main-section" id="formSection">
+        <div class="container">
+            <!-- Tab Title -->
+            <div class="section-header text-center mb-4">
+                <h2 id="formTitle" class="section-title">
+                    <i class="bi bi-file-earmark-text"></i> Create Quotation
+                </h2>
+                <div class="section-divider"></div>
+            </div>
+
+            <div class="row g-4">
+                <!-- LEFT: Customer Details -->
+                <div class="col-lg-6">
+                    <div class="glass-card">
+                        <h5 class="card-section-title"><i class="bi bi-person-fill"></i> Customer Details</h5>
+                        <div class="mb-3">
+                            <label class="form-label">Customer Name <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control custom-input" id="customerName" placeholder="Enter customer name" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Address <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control custom-input" id="customerAddress" placeholder="Enter full address">
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Mobile <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control custom-input" id="customerMobile" placeholder="Mobile number">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">GST Number</label>
+                                <input type="text" class="form-control custom-input" id="customerGST" placeholder="GST number (optional)">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- RIGHT: Document Details -->
+                <div class="col-lg-6">
+                    <div class="glass-card">
+                        <h5 class="card-section-title"><i class="bi bi-file-earmark-ruled"></i> Document Details</h5>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label" id="docNumberLabel">Quotation No <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control custom-input" id="docNumber" placeholder="e.g. QT-2026-0001">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Date <span class="text-danger">*</span></label>
+                                <input type="date" class="form-control custom-input" id="docDate">
+                            </div>
+                        </div>
+                        <!-- Invoice-only fields -->
+                        <div id="invoiceExtraFields" style="display:none;">
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Ref Quotation No</label>
+                                    <input type="text" class="form-control custom-input" id="refQuotation" placeholder="e.g. QT-2026-0005">
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Payment Status</label>
+                                    <select class="form-select custom-input" id="paymentStatus">
+                                        <option value="PENDING">PENDING</option>
+                                        <option value="PARTIAL">PARTIAL</option>
+                                        <option value="PAID">PAID</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Paid Amount</label>
+                                    <input type="number" class="form-control custom-input" id="paidAmount" placeholder="0.00" value="0" min="0" step="0.01">
+                                </div>
+                             
+                            </div>
+                        </div>
+                        <!-- Quotation-only fields -->
+                        <div id="quotationExtraFields">
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Status</label>
+                                    <select class="form-select custom-input" id="quotationStatus">
+                                        <option value="PENDING">PENDING</option>
+                                        <option value="ACCEPTED">ACCEPTED</option>
+                                        <option value="REJECTED">REJECTED</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ITEMS TABLE -->
+            <div class="glass-card mt-4">
+                <h5 class="card-section-title"><i class="bi bi-list-check"></i> Items / Services</h5>
+                <div class="table-responsive">
+                    <table class="table table-custom" id="itemsTable">
+                        <thead>
+                            <tr>
+                                <th style="width:50px">Sr.</th>
+                                <th>Service Description</th>
+                                <th style="width:130px">Work Type</th>
+                                <th style="width:100px">Depth (in)</th>
+                                <th style="width:80px">Qty</th>
+                                <th style="width:100px">Rate (₹)</th>
+                                <th style="width:110px">Amount (₹)</th>
+                                <th style="width:50px"></th>
+                            </tr>
+                        </thead>
+                        <tbody id="itemsBody">
+                            <!-- Rows added by JS -->
+                        </tbody>
+                    </table>
+                </div>
+                <button class="btn btn-add-item" id="btnAddItem" onclick="addItem()">
+                    <i class="bi bi-plus-circle"></i> Add Item
+                </button>
+            </div>
+
+            <!-- DISCOUNT ROW (for invoice) -->
+            <div class="glass-card mt-4" id="discountSection" style="display:none;">
+                <div class="row align-items-center">
+                    <div class="col-md-3">
+                        <label class="form-label fw-semibold">Discount (₹)</label>
+                        <input type="number" class="form-control custom-input" id="discountAmount" placeholder="0.00" value="0" min="0" step="0.01" oninput="calculateTotals()">
+                    </div>
+                </div>
+            </div>
+
+            <!-- DISCOUNT ROW for quotation -->
+            <div class="glass-card mt-4" id="discountSectionQuotation">
+                <div class="row align-items-center">
+                    <div class="col-md-3">
+                        <label class="form-label fw-semibold">Discount (₹)</label>
+                        <input type="number" class="form-control custom-input" id="discountAmountQuotation" placeholder="0.00" value="0" min="0" step="0.01" oninput="calculateTotals()">
+                    </div>
+                </div>
+            </div>
+
+            <!-- ACTION BUTTONS -->
+            <div class="text-center mt-4 mb-5 action-buttons">
+                <button class="btn btn-preview" onclick="previewDocument()">
+                    <i class="bi bi-eye"></i> Preview
+                </button>
+                <button class="btn btn-download" onclick="downloadPDF()">
+                    <i class="bi bi-download"></i> Download PDF
+                </button>
+                <button class="btn btn-reset" onclick="resetForm()">
+                    <i class="bi bi-arrow-counterclockwise"></i> Reset
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== PREVIEW MODAL ===== -->
+    <div class="modal fade" id="previewModal" tabindex="-1" aria-labelledby="previewModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content preview-modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="previewModalLabel">
+                        <i class="bi bi-eye"></i> Document Preview
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body" id="previewModalBody">
+                    <!-- Preview content injected here -->
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-download" onclick="downloadPDF()">
+                        <i class="bi bi-download"></i> Download PDF
+                    </button>
+                    <button class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== HIDDEN PDF TEMPLATE ===== -->
+    <div id="pdfContainer" style="position:absolute;left:-9999px;top:0;"></div>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="app-footer">
+        <div class="container text-center">
+            <img src="ref/img2.jpg" alt="Ganesh" class="footer-img">
+            <p class="mb-1">&copy; <span id="footerYear"></span> Shree Gurudev Enterprises. All rights reserved.</p>
+            <p class="text-muted small">Contractor: Core Cutting, All Type Of Breaking Work & All type of Rebaring work</p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap 5 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
