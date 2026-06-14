@@ -165,7 +165,8 @@ function calculateRowAmount(inputEl) {
     const row = inputEl.closest('tr');
     const qty = parseFloat(row.querySelector('[data-field="qty"]').value) || 0;
     const rate = parseFloat(row.querySelector('[data-field="rate"]').value) || 0;
-    const amount = qty * rate;
+    const depth = parseFloat(row.querySelector('[data-field="depth"]').value) || 0;
+    const amount = qty * depth * rate;
     row.querySelector('[data-field="amount"]').value = amount.toFixed(2);
     calculateTotals();
 }
@@ -207,7 +208,7 @@ function collectFormData() {
         const depth = parseFloat(row.querySelector('[data-field="depth"]').value) || 0;
         const qty = parseFloat(row.querySelector('[data-field="qty"]').value) || 0;
         const rate = parseFloat(row.querySelector('[data-field="rate"]').value) || 0;
-        const amount = qty * rate;
+        const amount = qty * depth * rate;
 
         data.items.push({
             sr: idx + 1,
