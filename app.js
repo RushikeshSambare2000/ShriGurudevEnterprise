@@ -10,8 +10,8 @@ let itemCounter = 0;
 // ===== COMPANY INFO (constants) =====
 const COMPANY = {
     name: 'SHREE GURUDEV ENTERPRISES',
-    tagline: 'Contractor: Core Cutting, All Type Of Breaking Work & All type of Rebaring work',
-    contact: 'Sunil Patil : 88883 52558',
+    tagline: 'Core Cutting, All Type Of Breaking Work & All type of Rebaring work',
+    contact: 'Contractor : Sunil Patil, Mo.No : 8888352558 Email : sunilpatil1472@gmail.com',
     address: 'Sr. No. 2441/15, Lavale Phata, Balajinagar, Pirangut Tal-Mulshi, Dist-Pune 412115',
     img1: 'ref/img1.jpg',
     img2: 'ref/img2.jpg',
