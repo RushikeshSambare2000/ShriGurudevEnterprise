@@ -366,7 +366,7 @@ function generatePDFHTML(data) {
     let termsHTML = terms.map((t, i) => `<div>${i + 1}) ${t}</div>`).join('');
 
     // Document title
-    const docTitle = data.type === 'invoice' ? 'TAX INVOICE' : 'QUOTATION';
+    const docTitle = data.type === 'invoice' ? 'INVOICE' : 'QUOTATION';
 
     // Convert images to absolute paths for html2pdf
     const img1Path = window.location.href.substring(0, window.location.href.lastIndexOf('/') + 1) + COMPANY.img1;
